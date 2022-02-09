@@ -33,6 +33,11 @@ public class User {
 	@Email(message = "Invalid email!")
 	@NotBlank(message = "Email must be present.")
 	private String email;
+	private String dateOfBirth;
+	private String city;
+	private String state;
+	private String country;
+	private String bio;
 	@NotBlank(message = "Password must be present.")
 	@Size(min = 8, message = "Password should be min 8 characters.")
 	private String password;
@@ -66,6 +71,37 @@ public class User {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getBio() {
+		return bio;
+	}
+	public void setBio(String bio) {
+		this.bio = bio;
 	}
 	public String getEmail() {
 		return email;
