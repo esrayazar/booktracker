@@ -1,9 +1,17 @@
 package com.esra.booktracker.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
@@ -30,8 +38,14 @@ public class User {
 	private String password;
 	@Transient
 	private String confirmPassword;
+	private Boolean isPublic;
 	
-	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Book> books;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "likes", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
+	private List<Book> likedBooks;
+
 	
 	
 	
@@ -73,6 +87,24 @@ public class User {
 	}
 	public User() {
 		super();
+	}
+	public Boolean getIsPublic() {
+		return isPublic;
+	}
+	public void setIsPublic(Boolean isPublic) {
+		this.isPublic = isPublic;
+	}
+	public List<Book> getBooks() {
+		return books;
+	}
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
+	public List<Book> getLikedBooks() {
+		return likedBooks;
+	}
+	public void setLikedBooks(List<Book> likedBooks) {
+		this.likedBooks = likedBooks;
 	}
 	
 	
