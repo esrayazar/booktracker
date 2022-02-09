@@ -72,7 +72,7 @@ public class BookController {
 		if (editBook.getUser().getId().compareTo((Long) session.getAttribute("user__id")) != 0)
 			return "redirect:/books/dashboard";
 		model.addAttribute("editBook", editBook);
-		return "edit.jsp";
+		return "editbook.jsp";
 	}
 	
 
