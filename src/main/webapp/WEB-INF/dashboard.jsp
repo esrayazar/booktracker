@@ -6,8 +6,8 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ page import="java.util.*"%>
 <body>
-	<t:partial>
-	<h3>Ideas</h3>
+	<t:navigation>
+	<h3></h3>
 
-	</t:partial>
+	</t:navigation>
 </body>
