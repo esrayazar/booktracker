@@ -25,35 +25,44 @@
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-              <form>
+              <form:form action="/register" method="post" modelAttribute="user">
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example1cg">Your Name</label>
+                  <form:input class="form-control form-control-lg" path="firstName"/>
+                  <form:label  path="firstName" class="form-label">First Name</form:label>
+                  <form:errors path="firstName"/>
+                </div>
+                <div class="form-outline mb-4">
+                  <form:input class="form-control form-control-lg" path="lastName"/>
+                  <form:label  path="lastName" class="form-label" >Last Name</form:label>
+                  <form:errors path="lastName"/>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example3cg">Your Email</label>
+                  <form:input type="email" class="form-control form-control-lg" path="email" />
+                  <form:label path="email"  class="form-label">Email</form:label>
+                  <form:errors path="email"/>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cg">Password</label>
+                  <form:input type="password"  class="form-control form-control-lg" path="password" />
+                  <form:label path="password"  class="form-label" >Password</form:label>
+                  <form:errors path="password"/>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                  <form:input type="password" class="form-control form-control-lg" path="confirmPassword" />
+                  <form:label class="form-label" path="confirmPassword" >Repeat your password</form:label>
+                  <form:errors path="confirmPassword"/>
                 </div>
 
                 <div class="d-flex justify-content-center">
-                  <button type="button" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                 </div>
 
-                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!" class="fw-bold text-body"><u>Login here</u></a></p>
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
 
-              </form>
+              </form:form>
 
             </div>
           </div>
