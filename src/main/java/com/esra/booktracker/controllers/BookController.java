@@ -20,7 +20,6 @@ import com.esra.booktracker.services.UserService;
 import com.esra.booktracker.validators.BookValidator;
 
 
-
 @Controller
 @RequestMapping("/books")
 public class BookController {
@@ -68,12 +67,38 @@ public class BookController {
 			System.out.println("book id=" + id + " is not found in DB.");
 			return "redirect:/edit/dashboard";
 		}
-		// Verify User has access to Edit the Idea
+		// Verify User has access to Edit the Book
 		if (editBook.getUser().getId().compareTo((Long) session.getAttribute("user__id")) != 0)
 			return "redirect:/books/dashboard";
 		model.addAttribute("editBook", editBook);
+		User user = this.userService.findOneUser((Long) session.getAttribute("user__id"));
+		model.addAttribute("user",user);
 		return "editbook.jsp";
 	}
+	@PostMapping("/update/{id}")
+	public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("editBook") Book book,
+			BindingResult result, HttpSession session, Model model) {
+		bookValidator.validate(book, result);
+		if (result.hasErrors()) {
+			return "editbook.jsp";
+		}
+		bookService.updateBook(id, book);
+		return "redirect:/books/dashboard";
+	}
+	@GetMapping("/{id}/delete")
+	public String delete(@PathVariable("id") Long id, HttpSession session) {
+		// Check if there is any active user session.
+		if(session.getAttribute("user__id") == null) return "redirect:/";
+		Book book = bookService.getOneBook(id);
+		if (book.getUser().getId().compareTo((Long) session.getAttribute("user__id")) != 0) {
+			System.out.println("Warning: Access denied!");
+			return "redirect:/books/dashboard";
+		}
+
+		this.bookService.deleteBook(id);
+		return "redirect:/books/dashboard";
+	}
+
 	
 
 }
