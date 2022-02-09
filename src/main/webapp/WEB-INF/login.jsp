@@ -16,61 +16,42 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
-<div class="row">
-<div class="col">
-<h3>Register</h3>
-	<form:form action="/register" method="post" modelAttribute="user">
-	<div class="form-group">
-		<form:label path="firstName"><strong>First Name:</strong></form:label>
-		<br/>
-		<form:errors path="firstName"/>
-		<form:input class="form-control" path="firstName"/>
-	</div>
-	<div class="form-group">
-		<form:label path="lastName"><strong>Last Name:</strong></form:label>
-		<br/>
-		<form:errors path="lastName"/>
-		<form:input class="form-control" path="lastName"/>
-	</div>
-	<div class="form-group">
-		<form:label path="email"><strong>Email:</strong></form:label>
-		<br/>
-		<form:errors path="email"/>
-		<form:input type="email" class="form-control" path="email"/>
-	</div>
-	<div class="form-group">
-		<form:label path="password"><strong>Password:</strong></form:label>
-		<br/>
-		<form:errors path="password"/>
-		<form:input type="password" class="form-control" path="password"/>
-	</div>
-	<div class="form-group">
-		<form:label path="confirmPassword"><strong>Confirm Password:</strong></form:label>
-		<br/>
-		<form:errors path="confirmPassword"/>
-		<form:input type="password" class="form-control" path="confirmPassword"/>
-	</div>
-	<button type="submit" class="btn btn-secondary">Register</button>
-	</form:form>
-</div>
-<div class="col">
-<h3>Login</h3>
-<p>${loginError}</p>
-<form method="post" action="/login" >
-	<div class="form-group">
-		<label>Email</label>
-		<input class="form-control" type="email" name="loginEmail" autocomplete="off"/>
-	</div>
-	<div class="form-group">
-	<label>Password</label>
-		<input class="form-control" type="password" name="loginPassword"/>
-	</div>
-	<button type="submit" class="btn btn-secondary">Login</button>
-	</form>
-</div>
-</div>
-</div>
+<section class="vh-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Sign In</h2>
+
+              <form action="/login" method="post">
+	<p>${loginError}</p>
+                <div class="form-outline mb-4">
+                  <input class="form-control form-control-lg" id="email" name="loginEmail"/>
+                  <label  for="email" class="form-label">Email</label>
+                </div>
+               
+                <div class="form-outline mb-4">
+                  <input type="password"  class="form-control form-control-lg" id="password" name="loginPassword" />
+                  <label for="password"  class="form-label" >Password</label>
+              
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Sign In</button>
+                </div>
+
+                <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="/register" class="fw-bold text-body"><u>Register</u></a></p>
+
+              </form>
+ 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 </body>
