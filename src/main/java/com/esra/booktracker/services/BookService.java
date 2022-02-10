@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.esra.booktracker.models.Book;
+import com.esra.booktracker.models.Rating;
 import com.esra.booktracker.models.User;
 import com.esra.booktracker.repositories.BookRepository;
+import com.esra.booktracker.repositories.RatingRepository;
 
 
 
@@ -16,6 +18,8 @@ public class BookService {
 
 	@Autowired
 	private BookRepository bookRepository;
+	@Autowired
+	private RatingRepository ratingRepository;
 
 	// Create
 	public Book create(Book book) {
@@ -34,9 +38,14 @@ public class BookService {
 	}
 
 	// Update
-	public Book updateBook(Long id, String description) {
+	public Book updateBook(Long id, Book edited) {
 		Book book = getOneBook(id);
-		book.setDescription(description);
+		book.setAuthor(edited.getAuthor());
+		book.setDescription(edited.getDescription());
+		book.setGenre(edited.getGenre());
+		book.setIsbn(edited.getIsbn());
+		book.setTitle(edited.getTitle());
+		book.setYear(edited.getYear());
 		return bookRepository.save(book);
 	}
 
@@ -58,6 +67,12 @@ public class BookService {
 		usersWhoLiked.remove(user);
 		this.bookRepository.save(book);
 	}
+	
+//	Add Rating to Art 
+	public void AddRating(Rating rating) {
+		 ratingRepository.save(rating);
+	}
+	
 
 //	public List<Book> getLikesSortedDesc() {
 //		return this.bookRepository.findAllByLikersOrderByLikersDesc();
