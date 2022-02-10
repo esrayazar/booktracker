@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.esra.booktracker.models.Book;
+import com.esra.booktracker.models.Rating;
 import com.esra.booktracker.models.User;
 import com.esra.booktracker.services.BookService;
 import com.esra.booktracker.services.UserService;
@@ -97,6 +98,14 @@ public class BookController {
 
 		this.bookService.deleteBook(id);
 		return "redirect:/books/dashboard";
+	}
+	
+	//Rating
+	@PostMapping("/addRating")
+	public String addRating(@ModelAttribute("newRating") Rating rating) {
+		bookService.AddRating(rating);
+		return "redirect:/arts";
+		
 	}
 
 	
