@@ -5,7 +5,6 @@ import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.esra.booktracker.models.User;
 import com.esra.booktracker.repositories.UserRepository;
 
@@ -43,6 +42,19 @@ public class UserService {
 
 	public User getUserByEmail(String email) {
 		return this.userRepository.findByEmail(email);
+	}
+	
+	public User updateUser(Long id, User edited) {
+		User user = findOneUser(id);
+		user.setFirstName(edited.getFirstName());
+		user.setLastName(edited.getLastName());
+		user.setEmail(edited.getEmail());
+		user.setDateOfBirth(edited.getDateOfBirth());
+		user.setCity(edited.getCity());
+		user.setState(edited.getState());
+		user.setCountry(edited.getCountry());
+		user.setBio(edited.getBio());
+		return userRepository.save(user);
 	}
 
 }
