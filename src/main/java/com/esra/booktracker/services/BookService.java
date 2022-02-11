@@ -1,6 +1,5 @@
 package com.esra.booktracker.services;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +11,6 @@ import com.esra.booktracker.models.Rating;
 import com.esra.booktracker.models.User;
 import com.esra.booktracker.repositories.BookRepository;
 import com.esra.booktracker.repositories.RatingRepository;
-
-
 
 @Service
 public class BookService {
@@ -55,23 +52,25 @@ public class BookService {
 	public void deleteBook(Long id) {
 		this.bookRepository.deleteById(id);
 	}
-	//Search Book
+
+	// Search Book
 	public List<Book> searchBook(String term) {
-		List<Book> searchResult= new ArrayList<>();
-	Book book = this.bookRepository.findByIsbn(term);
-	if(book!=null) {
-		searchResult.add(book);
+		List<Book> searchResult = new ArrayList<>();
+		Book book = this.bookRepository.findByIsbn(term);
+		if (book != null) {
+			searchResult.add(book);
+			return searchResult;
+		}
+
+		searchResult = bookRepository.findAllbySearchTerm(term);// searchByTerm(term);
 		return searchResult;
 	}
-	
-	searchResult= bookRepository.findAllbySearchTerm(term);//searchByTerm(term);
-	return searchResult;
-	}
+
 	public Book searchBookByIsbn(String isbn) {
 		return this.bookRepository.findByIsbn(isbn);
-		}
-	//book detail
-	
+	}
+	// book detail
+
 	public Book getBookById(Long id) {
 		return this.bookRepository.findById(id).get();
 	}
@@ -87,31 +86,29 @@ public class BookService {
 		book.getLikers().remove(user);
 		this.bookRepository.save(book);
 	}
+
 	// AddWishList
-		public void addWishList(User user, Book book) {
-			book.getWishList().add(user);
-			this.bookRepository.save(book);
-		}
-	
-	//RemoveWishList
+	public void addWishList(User user, Book book) {
+		book.getWishList().add(user);
+		this.bookRepository.save(book);
+	}
+
+	// RemoveWishList
 	public void removeWishList(User user, Book book) {
 		book.getWishList().remove(user);
 		this.bookRepository.save(book);
 	}
-	
-	
+
 //	Add Rating to Book
 	public void AddRating(Rating rating) {
-		 ratingRepository.save(rating);
+		ratingRepository.save(rating);
 	}
-//
+
+//Completed Book
 	public void completeBookRead(User user, Book book) {
-		List<User> completedBook = book.getWishList();
-		completedBook.add(user);
+		book.getCompletedList().add(user);
 		this.bookRepository.save(book);
-		
 	}
-	
 
 //	public List<Book> getLikesSortedDesc() {
 //		return this.bookRepository.findAllByLikersOrderByLikersDesc();
