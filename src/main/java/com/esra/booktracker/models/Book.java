@@ -2,6 +2,7 @@ package com.esra.booktracker.models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,8 @@ public class Book {
 	private String genre;
 	private String description;
 	private String imgUrl;
+	
+	@Column(unique=true)
 	private String isbn;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -35,6 +38,29 @@ public class Book {
 	@JoinTable(name = "likes", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> likers;
 	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "wishes", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<User> wishList;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "completed", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<User> completedList;
+	
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="user_id")
+//	private User ratedBy;
+//	
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="art_id")
+//	private Art ratedArt;
+
+	
+	public List<User> getWishList() {
+		return wishList;
+	}
+	public void setWishList(List<User> wishList) {
+		this.wishList = wishList;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -98,6 +124,12 @@ public class Book {
 	}
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+	public List<User> getCompletedList() {
+		return completedList;
+	}
+	public void setCompletedList(List<User> completedList) {
+		this.completedList = completedList;
 	}
 	
 	
