@@ -179,13 +179,25 @@ public class BookController {
 	
 	//Complete Reading a Book
 	@GetMapping("/complete")
-	public String completeBook(HttpSession session, @RequestParam String isbn) {
+	public String completeBook(HttpSession session, @RequestParam(required = false) String isbn, Model model) {
 		// Check if there is any active user session.
 		if(session.getAttribute("user__id") == null) return "redirect:/";
 		User user = this.userService.findOneUser((Long) session.getAttribute("user__id"));
-		Book book = this.bookService.searchBookByIsbn(isbn);
-		//this.bookService.completedBookRead(user, book);
-		return "redirect:/dashboard";
+		model.addAttribute("user", user);
+		if(isbn!= null){
+			Book book =this.bookService.searchBookByIsbn(isbn);
+			if(book==null || book.getTitle().isEmpty()) {
+				model.addAttribute("error", "Book can not be found in database");
+			} else {
+				if(!book.getCompletedList().contains(user)) {
+					this.bookService.completeBookRead(user, book);
+				} else {
+					model.addAttribute("error", "You have already read this book!");
+				}
+			}
+			
+		} 
+		return "completedbook.jsp";
 	}
 	
 	//Rating
