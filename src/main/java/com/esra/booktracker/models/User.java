@@ -50,9 +50,12 @@ public class User {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "likes", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
 	private List<Book> likedBooks;
-
-	
-	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "wishes", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
+	private List<Book> wishedBooks;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "completed", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
+	private List<Book> completedBooks;
 	
 	public Long getId() {
 		return id;
@@ -141,6 +144,25 @@ public class User {
 	}
 	public void setLikedBooks(List<Book> likedBooks) {
 		this.likedBooks = likedBooks;
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", dateOfBirth=" + dateOfBirth + ", city=" + city + ", state=" + state + ", country=" + country
+				+ ", bio=" + bio + ", password=" + password + ", confirmPassword=" + confirmPassword + ", isPublic="
+				+ isPublic + ", books=" + books + ", likedBooks=" + likedBooks + "]";
+	}
+	public List<Book> getWishedBooks() {
+		return wishedBooks;
+	}
+	public void setWishedBooks(List<Book> wishedBooks) {
+		this.wishedBooks = wishedBooks;
+	}
+	public List<Book> getCompletedBooks() {
+		return completedBooks;
+	}
+	public void setCompletedBooks(List<Book> completedBooks) {
+		this.completedBooks = completedBooks;
 	}
 	
 	
