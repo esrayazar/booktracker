@@ -7,8 +7,11 @@
 <t:navigation>
 <body>
 <div class="container">
-<h3>Create a New Idea</h3>
+<h3>Create a New Book</h3>
 <form:form action="/books/create" method="post" modelAttribute="book">
+<c:if test="${not empty error}">
+${error}
+</c:if>
 	<div class="form-group">
 		<form:label path="title">Title</form:label>
 		<form:errors class="text-danger"  path="title"/>
