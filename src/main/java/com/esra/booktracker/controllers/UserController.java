@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.esra.booktracker.models.User;
 import com.esra.booktracker.services.UserService;
+import com.esra.booktracker.validators.RegistrationValidator;
 import com.esra.booktracker.validators.UserValidator;
 
 
@@ -25,6 +26,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private UserValidator userValidator;
+	@Autowired 
+	private RegistrationValidator registrationValidator;
 
 	@GetMapping("/")
 	public String welcome(@ModelAttribute("user") User user) {
@@ -44,6 +47,14 @@ public class UserController {
 		return "registration.jsp";
 	}
 	
+	//Show WishList
+	@GetMapping("/wishlist")
+	public String showWishList(HttpSession session, Model model) {
+		if(session.getAttribute("user__id") == null) return "redirect:/";
+		User user = this.userService.findOneUser((Long) session.getAttribute("user__id"));
+		model.addAttribute("user", user);
+		return"wishlist.jsp";
+	}
 
 
 	/**
@@ -56,7 +67,7 @@ public class UserController {
 	@PostMapping("/register")
 	public String register(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession session) {
 		System.out.println("User:" + user.toString());
-		userValidator.validate(user, result);
+		registrationValidator.validate(user, result);
 		if (result.hasErrors()) {
 			return "registration.jsp";
 		}
@@ -120,23 +131,37 @@ public class UserController {
 		// This will prevent white label error on UI
 		if (editUser == null) {
 			System.out.println("Idea id=" + id + " is not found in DB.");
-			return "redirect:/ideas/dashboard";
+			return "redirect:/dashboard";
 		}
 		// Verify User has access to Edit the User
 		if (editUser.getId().compareTo((Long) session.getAttribute("user__id")) != 0)
-			return "redirect:/ideas/dashboard";
+			return "redirect:/dashboard";
 		model.addAttribute("user", editUser);
 		return "edituser.jsp";
 	}
-	@PostMapping("user/update/{id}")
-	public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("user") User user,
+	@PostMapping("user/edit/{id}")
+	public String update(@PathVariable("id") Long id, @ModelAttribute("user") User user,
 			BindingResult result, HttpSession session, Model model) {
 		userValidator.validate(user, result);
+		// Check if there is any active user session.
+		if(session.getAttribute("user__id") == null) return "redirect:/";
+		User editUser = userService.findOneUser(id);
+		// Check if the given id returns anything from DB
+		// This will prevent white label error on UI
+		if (editUser == null) {
+			System.out.println("Idea id=" + id + " is not found in DB.");
+			return "redirect:/dashboard";
+		}
+		// Verify User has access to Edit the User
+		if (editUser.getId().compareTo((Long) session.getAttribute("user__id")) != 0)
+			return "redirect:/dashboard";
+		
+		userService.updateUser(editUser, user);
 		if (result.hasErrors()) {
 			return "edituser.jsp";
 		}
-		userService.updateUser(id, user);
-		return "redirect:userprofile.jsp";
+		userService.saveUser(editUser);
+		return "redirect:/profile/"+id;
 	}
 	
 
