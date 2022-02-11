@@ -44,8 +44,7 @@ public class UserService {
 		return this.userRepository.findByEmail(email);
 	}
 	
-	public User updateUser(Long id, User edited) {
-		User user = findOneUser(id);
+	public void updateUser(User user, User edited) {
 		user.setFirstName(edited.getFirstName());
 		user.setLastName(edited.getLastName());
 		user.setEmail(edited.getEmail());
@@ -54,7 +53,11 @@ public class UserService {
 		user.setState(edited.getState());
 		user.setCountry(edited.getCountry());
 		user.setBio(edited.getBio());
+	}
+	public User saveUser(User user) {
 		return userRepository.save(user);
 	}
+	
+	
 
 }
