@@ -19,9 +19,17 @@
 	<c:out value="${user.lastName}"/>
 	</h3>
 	<a href="/dashboard">Dashboard</a> |
-	<a href="/track">Track</a> |
+	<a href="/books/complete">Log Book Read</a> |
+	<a href="/books/completedbook">Completed Book List</a> |
 	<a href="/wishlist">Wish List</a>
+	<a href="/books/create">Add Book</a> |
 	<a href="/logout">Logout</a>
+	<form action="/books/search" method="get">
+	<input name="term" type="text" placeholder="search books ISBN, name, author etc" >
+	<button type="submit">Search</button>
+	</form>
+	
+	
 	<hr>
 <jsp:doBody/>
 </div>
