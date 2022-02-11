@@ -1,5 +1,7 @@
 package com.esra.booktracker.services;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,24 +55,61 @@ public class BookService {
 	public void deleteBook(Long id) {
 		this.bookRepository.deleteById(id);
 	}
+	//Search Book
+	public List<Book> searchBook(String term) {
+		List<Book> searchResult= new ArrayList<>();
+	Book book = this.bookRepository.findByIsbn(term);
+	if(book!=null) {
+		searchResult.add(book);
+		return searchResult;
+	}
+	
+	searchResult= bookRepository.findAllbySearchTerm(term);//searchByTerm(term);
+	return searchResult;
+	}
+	public Book searchBookByIsbn(String isbn) {
+		return this.bookRepository.findByIsbn(isbn);
+		}
+	//book detail
+	
+	public Book getBookById(Long id) {
+		return this.bookRepository.findById(id).get();
+	}
 
 	// Like
 	public void likeBook(User user, Book book) {
-		List<User> usersWhoLiked = book.getLikers();
-		usersWhoLiked.add(user);
+		book.getLikers().add(user);
 		this.bookRepository.save(book);
 	}
 
 	// Unlike
 	public void unlikeBook(User user, Book book) {
-		List<User> usersWhoLiked = book.getLikers();
-		usersWhoLiked.remove(user);
+		book.getLikers().remove(user);
+		this.bookRepository.save(book);
+	}
+	// AddWishList
+		public void addWishList(User user, Book book) {
+			book.getWishList().add(user);
+			this.bookRepository.save(book);
+		}
+	
+	//RemoveWishList
+	public void removeWishList(User user, Book book) {
+		book.getWishList().remove(user);
 		this.bookRepository.save(book);
 	}
 	
-//	Add Rating to Art 
+	
+//	Add Rating to Book
 	public void AddRating(Rating rating) {
 		 ratingRepository.save(rating);
+	}
+//
+	public void completeBookRead(User user, Book book) {
+		List<User> completedBook = book.getWishList();
+		completedBook.add(user);
+		this.bookRepository.save(book);
+		
 	}
 	
 
