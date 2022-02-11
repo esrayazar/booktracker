@@ -1,5 +1,7 @@
 package com.esra.booktracker.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -129,7 +131,13 @@ public class BookController {
 		if(session.getAttribute("user__id") == null) return "redirect:/";
 		User user = this.userService.findOneUser((Long) session.getAttribute("user__id"));
 		viewModel.addAttribute("user", user);
-		viewModel.addAttribute("books", bookService.searchBook(term));
+		if(term!= null) {
+			List<Book> books = bookService.searchBook(term);
+			viewModel.addAttribute("books", bookService.searchBook(term));
+			if(books.size()==0) {
+				viewModel.addAttribute("message", term + " Did not return any result :(");
+			}
+		}
 		return "searchpage.jsp";
 	}
 	//Like
@@ -198,6 +206,17 @@ public class BookController {
 			
 		} 
 		return "completedbook.jsp";
+	}
+	
+	//Show Completed Book List
+	@GetMapping("/completedbook")
+	public String completedBookList(HttpSession session, Model viewModel, @ModelAttribute("book") Book book) {
+		// Check if there is any active user session.
+				if(session.getAttribute("user__id") == null) return "redirect:/";
+				User user = this.userService.findOneUser((Long) session.getAttribute("user__id"));
+				viewModel.addAttribute("user", user);
+		return "completedbooklist.jsp";
+		
 	}
 	
 	//Rating
