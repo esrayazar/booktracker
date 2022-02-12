@@ -16,6 +16,10 @@
 <p> Book Photo <c:out value="${book.imgUrl}"/></p>
 <p>${book.likers.size()} Likes</p> 
 </c:forEach>
+<c:if test="${not empty message}">
+<c:out value="${message}"></c:out>
+
+</c:if>
 
 </div>
 </t:navigation>
