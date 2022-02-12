@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.esra.booktracker.models.Book;
 import com.esra.booktracker.models.Rating;
+import com.esra.booktracker.models.Review;
 import com.esra.booktracker.models.User;
 import com.esra.booktracker.repositories.BookRepository;
 import com.esra.booktracker.repositories.RatingRepository;
+import com.esra.booktracker.repositories.ReviewRepository;
 
 @Service
 public class BookService {
@@ -19,6 +21,8 @@ public class BookService {
 	private BookRepository bookRepository;
 	@Autowired
 	private RatingRepository ratingRepository;
+	@Autowired
+	private ReviewRepository reviewRepository;
 
 	// Create
 	public Book create(Book book) {
@@ -104,10 +108,24 @@ public class BookService {
 		ratingRepository.save(rating);
 	}
 
+//	Add Review to Book
+	public void AddReview(Review review) {
+		reviewRepository.save(review);
+	}
+
+	// Delete review
+	public void deleteReview(Review review) {
+		this.reviewRepository.delete(review);
+	}
+
 //Completed Book
 	public void completeBookRead(User user, Book book) {
 		book.getCompletedList().add(user);
 		this.bookRepository.save(book);
+	}
+
+	public Review findReviewById(Long id) {
+		return reviewRepository.findById(id).get();
 	}
 
 //	public List<Book> getLikesSortedDesc() {
