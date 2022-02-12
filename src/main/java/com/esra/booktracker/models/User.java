@@ -57,6 +57,12 @@ public class User {
 	@JoinTable(name = "completed", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
 	private List<Book> completedBooks;
 	
+	  @OneToMany(mappedBy ="ratedBy", fetch=FetchType.LAZY)
+		 private List<Rating> ratings;
+	  @OneToMany(mappedBy ="reviewedBy", fetch=FetchType.LAZY)
+		 private List<Review> reviews;
+		 
+	 
 	public Long getId() {
 		return id;
 	}
@@ -163,6 +169,18 @@ public class User {
 	}
 	public void setCompletedBooks(List<Book> completedBooks) {
 		this.completedBooks = completedBooks;
+	}
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+	public List<Review> getReviews() {
+		return reviews;
+	}
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 	
 	
