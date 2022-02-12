@@ -2,6 +2,7 @@ package com.esra.booktracker.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -46,14 +48,11 @@ public class Book {
 	@JoinTable(name = "completed", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> completedList;
 	
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="user_id")
-//	private User ratedBy;
-//	
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="art_id")
-//	private Art ratedArt;
-
+	@OneToMany(mappedBy ="ratedBook", fetch=FetchType.LAZY)
+	 private List<Rating> ratings;
+	
+	@OneToMany(mappedBy ="reviewedBook", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	 private List<Review> reviews;
 	
 	public List<User> getWishList() {
 		return wishList;
@@ -131,8 +130,19 @@ public class Book {
 	public void setCompletedList(List<User> completedList) {
 		this.completedList = completedList;
 	}
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+	public List<Review> getReviews() {
+		return reviews;
+	}
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
 	
-	
-	
+
 
 }
