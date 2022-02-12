@@ -7,7 +7,20 @@
 <%@ page import="java.util.*"%>
 <body>
 	<t:navigation>
-	<h3></h3>
-
+		<h3></h3>
+		<p>
+			You have <a href="/wishlist"><c:out
+					value="${user.wishedBooks.size()}"></c:out> books</a> in your wish
+			list.
+		</p>
+		<p>
+			You have read <a href="/books/completedbook"><c:out
+					value="${user.completedBooks.size()}"></c:out> books</a> so far!
+		</p>
+		<p>
+			You have provided
+			<c:out value="${user.reviews.size()}"></c:out>
+			reviews so far!
+		</p>
 	</t:navigation>
 </body>
