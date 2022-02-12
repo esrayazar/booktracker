@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Ideas!!!</title>
+<title>Books</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -14,9 +14,10 @@
 <body>
 <div class="container">
   <h3>
-	Welcome,
+	Welcome, <a href="/profile/${user.id}">
 	<c:out value="${user.firstName}"/>
 	<c:out value="${user.lastName}"/>
+	</a>
 	</h3>
 	<a href="/dashboard">Dashboard</a> |
 	<a href="/books/complete">Log Book Read</a> |
