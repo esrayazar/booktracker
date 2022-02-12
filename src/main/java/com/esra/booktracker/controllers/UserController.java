@@ -30,8 +30,9 @@ public class UserController {
 	private RegistrationValidator registrationValidator;
 
 	@GetMapping("/")
-	public String welcome(@ModelAttribute("user") User user) {
-		return "registration.jsp";
+	public String welcome( HttpSession session) {
+		if(session.getAttribute("user__id") == null) return "redirect:/login";
+		return "redirect:/dashboard";
 	}
 	@GetMapping("/dashboard")
 	public String dashboard(Model model, HttpSession session) {
