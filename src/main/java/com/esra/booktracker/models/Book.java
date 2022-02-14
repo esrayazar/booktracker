@@ -14,10 +14,20 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "books")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,95 +64,9 @@ public class Book {
 	@OneToMany(mappedBy ="reviewedBook", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	 private List<Review> reviews;
 	
-	public List<User> getWishList() {
-		return wishList;
-	}
-	public void setWishList(List<User> wishList) {
-		this.wishList = wishList;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getAuthor() {
-		return author;
-	}
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-	public String getYear() {
-		return year;
-	}
-	public void setYear(String year) {
-		this.year = year;
-	}
-
-	public String getGenre() {
-		return genre;
-	}
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public String getIsbn() {
-		return isbn;
-	}
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
-	public Book() {
-		super();
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	public List<User> getLikers() {
-		return likers;
-	}
-	public void setLikers(List<User> likers) {
-		this.likers = likers;
-	}
-	public String getImgUrl() {
-		return imgUrl;
-	}
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
-	}
-	public List<User> getCompletedList() {
-		return completedList;
-	}
-	public void setCompletedList(List<User> completedList) {
-		this.completedList = completedList;
-	}
-	public List<Rating> getRatings() {
-		return ratings;
-	}
-	public void setRatings(List<Rating> ratings) {
-		this.ratings = ratings;
-	}
-	public List<Review> getReviews() {
-		return reviews;
-	}
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
-	}
+	@OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Image image;
 	
-
+	
 
 }
