@@ -1,5 +1,6 @@
 package com.esra.booktracker.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.esra.booktracker.models.Book;
 import com.esra.booktracker.models.Rating;
@@ -97,11 +99,11 @@ public class BookController {
 		// This will prevent white label error on UI
 		if (editBook == null) {
 			System.out.println("book id=" + id + " is not found in DB.");
-			return "redirect:/edit/dashboard";
+			return "redirect:/dashboard";
 		}
 		// Verify User has access to Edit the Book
 		if (editBook.getUser().getId().compareTo((Long) session.getAttribute("user__id")) != 0)
-			return "redirect:/books/dashboard";
+			return "redirect:/dashboard";
 		model.addAttribute("editBook", editBook);
 		User user = this.userService.findOneUser((Long) session.getAttribute("user__id"));
 		model.addAttribute("user", user);
@@ -110,13 +112,14 @@ public class BookController {
 
 	@PostMapping("/update/{id}")
 	public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("editBook") Book book,
-			BindingResult result, HttpSession session, Model model) {
+			BindingResult result, HttpSession session, 
+			@RequestParam("mimage") MultipartFile file) throws IOException {
 		bookValidator.validate(book, result);
 		if (result.hasErrors()) {
 			return "editbook.jsp";
 		}
-		bookService.updateBook(id, book);
-		return "redirect:/books/dashboard";
+		bookService.updateBook(id, book, file);
+		return "redirect:/books/"+id;
 	}
 
 	@GetMapping("/{id}/delete")
