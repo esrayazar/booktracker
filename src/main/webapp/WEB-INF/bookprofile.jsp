@@ -5,14 +5,120 @@
 <%@ page isErrorPage="true"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:navigation>
-	<body>
-		<div class="container">
-			<div class="d-flex flex-row">
-				<div class="p-2">
+
+<div class="col-sm-6">
+<div> <!--  class="center" -->
+  <div class="card green">
+    <div class="additional">
+      <div class="user-card">
+        <div class="level center">
+         <span> <c:out value="${book.reviews.size()}"></c:out> Reviews </span>
+        </div>
+        <div class="points center">
+        <span>
+        <c:out value="${book.likers.size()}"></c:out> Likes
+        </span>
+        </div>
+        <img src="/get/image/byid/${book.image.id}" class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4">
+      </div>
+      <div class="more-info">
+        <h1>	<c:out value="${book.title}" /></h1>
+        	<hr>
+        <div class="coords">
+          <span>Year:
+          <c:out value="${book.year}" />
+          </span><br>
+          <span>Genre:
+          <c:out value="${book.genre}" /></span>
+        </div>
+        <div class="coords">
+          <span>Author:
+					<c:out value="${book.author}" /></span><br>
+          <span>	ISBN:
+					<c:out value="${book.isbn}" /></span>
+        </div>
+        <div class="stats">
+          <div>
+            <div class="title"></div>
+            <i class="fa fa-trophy"></i>
+            <div class="value">
+            
+            <c:choose>
+			<c:when test="${book.likers.contains(user)}">
+
+				<a href="/books/${book.id}/unlike/bookprofile">Unlike </a>
+			</c:when>
+			<c:otherwise>
+				<a href="/books/${book.id}/like/bookprofile">Like </a>
+			</c:otherwise>
+		</c:choose>
+            </div>
+          </div>
+          <div>
+            <div class="title"></div>
+            <i class="fa fa-gamepad"></i>
+            <div class="value">
+            <c:choose>
+			<c:when test="${book.wishList.contains(user)}">
+				<a href="/books/${book.id}/wish/remove/bookprofile">Remove Wish
+					List </a>
+			</c:when>
+			<c:otherwise>
+				<a href="/books/${book.id}/wish/add/bookprofile">Add Wish List </a>
+			</c:otherwise>
+		</c:choose>
+            
+            
+            </div>
+          </div>
+          <div>
+            <div class="title"></div>
+            <i class="fa fa-group"></i>
+            <div class="value">
+            <c:choose>
+			<c:when test="${book.completedList.contains(user)}">
+				You have read this book.
+			</c:when>
+			<c:otherwise>
+				<a href="/books/complete?isbn=${book.isbn}&id=${book.id}">Add
+					Your Completed Book List </a>
+			</c:otherwise>
+		</c:choose>
+            
+            
+            </div>
+          </div>
+        <!--   <div>
+            <div class="title">Coffee</div>
+            <i class="fa fa-coffee"></i>
+            <div class="value infinity">∞</div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="general">
+      <h1>	<c:out value="${book.title}" /></h1>
+      <p>	<c:out value="${book.description}" /></p>
+      <span class="more">Mouse over the card for more info</span>
+    </div>
+  </div>
+
+</div> <!-- center -->
+</div>	
+		
+		
+		
+		
+			<%-- <div class="d-flex flex-row">
+				
+				<img alt="book profile picture" height="128" width="128"
+		src="/get/image/byid/${book.image.id}">
+				
+				<div class="d-sm-table-cell p-2 bd-highlight">
 					Title
 					<c:out value="${book.title}" />
 				</div>
-				<div class="p-2">
+				<div class="d-sm-table-cell p-2 bd-highlight">
 					Year
 					<c:out value="${book.year}" />
 				</div>
@@ -31,12 +137,15 @@
 						ISBN
 						<c:out value="${book.isbn}" />
 					</div>
+					<div class="d-sm-table-cell p-2 bd-highlight" >
 					Description
 					<c:out value="${book.description}" />
+					</div>
 				</div>
 				<div class="p-2">${book.likers.size()}Likes</div>
-			</div>
-		</div>
+				<a href="/books/edit/${book.id}">Edit Book Profile</a>
+		
+		
 
 		<c:choose>
 			<c:when test="${book.likers.contains(user)}">
@@ -67,7 +176,6 @@
 		</c:choose>
 
 		<h5>Ratings for this book:</h5>
-
 		<c:set var="count" value="0" scope="page" />
 
 		<c:forEach items="${book.ratings}" var="rating">
@@ -111,7 +219,16 @@
 
 
 
-		<%-- <a href= "/books/addreview?book_id=${book.id}">Write a review </a> --%>
+		<a href= "/books/addreview?book_id=${book.id}">Write a review </a>
+		
+				
+			</div> --%>
+
+
+<%-- <div class="rating">
+<input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+</div>
+		
 		<c:if test="${not ratedbyUser eq true}">
 			<form:form action="/books/addrating" method="post"
 				modelAttribute="newRating">
@@ -124,19 +241,10 @@
 				<form:input type="hidden" value="${user.id}" path="ratedBy" />
 				<!-- Hidden Input for BookId -->
 				<form:input type="hidden" value="${book.id}" path="ratedBook" />
+
 				<button>Rate it!!</button>
 			</form:form>
-		</c:if>
-
-
-
-		<%-- <div class="row">
-<a href="/books/${book.id}"> Title <c:out value="${book.title}"/></a>
-<p> Author <c:out value="${book.author}"/></p>
-<p> Year <c:out value="${book.year}"/></p>
-<p> Genre <c:out value="${book.genre}"/></p>
-<p> Description <c:out value="${book.description}"/></p>
-<p> Book Photo <c:out value="${book.imgUrl}"/></p>
-</div> --%>
+		</c:if> --%>
+		
+		
 </t:navigation>
-</body>
