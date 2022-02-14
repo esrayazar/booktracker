@@ -5,8 +5,7 @@
     <%@ page isErrorPage="true"%>
     <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:navigation>
-<body>
-<div class="container">
+<div class="col-sm-6">
 <c:forEach items="${user.completedBooks}" var="book">
 <a href="/books/${book.id}"><p> Title <c:out value="${book.title}"/></p></a>
 <p> Author <c:out value="${book.author}"/></p>
@@ -35,4 +34,3 @@
 
 </div>
 </t:navigation>
-</body>
