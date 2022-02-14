@@ -1,5 +1,7 @@
 package com.esra.booktracker.controllers;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.esra.booktracker.models.User;
@@ -123,7 +126,8 @@ public class UserController {
 		return "userprofile.jsp";
 	}
 	@GetMapping("/user/edit/{id}")
-	public String edit(@PathVariable("id") Long id, @ModelAttribute("user") User user, Model model,
+	public String edit(@PathVariable("id") Long id, 
+			@ModelAttribute("user") User user, Model model,
 			HttpSession session) {
 		// Check if there is any active user session.
 		if(session.getAttribute("user__id") == null) return "redirect:/";
@@ -141,8 +145,10 @@ public class UserController {
 		return "edituser.jsp";
 	}
 	@PostMapping("user/edit/{id}")
-	public String update(@PathVariable("id") Long id, @ModelAttribute("user") User user,
-			BindingResult result, HttpSession session, Model model) {
+	public String update(@PathVariable("id") Long id, 
+			@ModelAttribute("user") User user,
+			BindingResult result, HttpSession session,
+			@RequestParam("mimage") MultipartFile file) throws IOException {
 		userValidator.validate(user, result);
 		// Check if there is any active user session.
 		if(session.getAttribute("user__id") == null) return "redirect:/";
@@ -157,7 +163,7 @@ public class UserController {
 		if (editUser.getId().compareTo((Long) session.getAttribute("user__id")) != 0)
 			return "redirect:/dashboard";
 		
-		userService.updateUser(editUser, user);
+		userService.updateUser(editUser, user, file);
 		if (result.hasErrors()) {
 			return "edituser.jsp";
 		}
