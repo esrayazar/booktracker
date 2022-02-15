@@ -5,9 +5,10 @@
     <%@ page isErrorPage="true"%>
     <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:navigation>
-<body>
-<div class="container">
+<div class="col-sm-6">
+
 <h3>Create a New Book</h3>
+
 <form:form action="/books/create" method="post" modelAttribute="book">
 <c:if test="${not empty error}">
 ${error}
@@ -45,5 +46,6 @@ ${error}
 	<button type="submit" class="btn btn-secondary">Create</button>
 </form:form>
 </div>
+
 </t:navigation>
-</body>
+

@@ -88,11 +88,6 @@
             
             </div>
           </div>
-        <!--   <div>
-            <div class="title">Coffee</div>
-            <i class="fa fa-coffee"></i>
-            <div class="value infinity">∞</div>
-          </div> -->
         </div>
       </div>
     </div>
