@@ -112,13 +112,12 @@ public class BookController {
 
 	@PostMapping("/update/{id}")
 	public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("editBook") Book book,
-			BindingResult result, HttpSession session, 
-			@RequestParam("mimage") MultipartFile file) throws IOException {
+			BindingResult result, HttpSession session) throws IOException {
 		bookValidator.validate(book, result);
 		if (result.hasErrors()) {
 			return "editbook.jsp";
 		}
-		bookService.updateBook(id, book, file);
+		bookService.updateBook(id, book);
 		return "redirect:/books/"+id;
 	}
 
@@ -130,11 +129,11 @@ public class BookController {
 		Book book = bookService.getOneBook(id);
 		if (book.getUser().getId().compareTo((Long) session.getAttribute("user__id")) != 0) {
 			System.out.println("Warning: Access denied!");
-			return "redirect:/books/dashboard";
+			return "redirect:/dashboard";
 		}
 
 		this.bookService.deleteBook(id);
-		return "redirect:/books/dashboard";
+		return "redirect:/dashboard";
 	}
 
 	@GetMapping("/search")

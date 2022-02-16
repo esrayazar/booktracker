@@ -5,22 +5,22 @@
 <%@ page isErrorPage="true"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ page import="java.util.*"%>
-<body>
-	<t:navigation>
 
-		<!-- 	 style="background-image: url('/img/bookbackground-heart.jpeg');height: auto;" -->
-		<div class="col-xs-6">
-			<div class="card">
-				<div class="card-body">
+<t:navigation>
+
+	<!-- 	 style="background-image: url('/img/bookbackground-heart.jpeg');height: auto;" -->
+	<div class="col-sm-6">
+		<div class="card center">
+			<div class="card-body">
 				<div class="col-xs-6">
 					<p>
 						You have <a href="/wishlist"><c:out
 								value="${user.wishedBooks.size()}"></c:out> books</a> in your wish
 						list.
 					</p>
-					</div>
+				</div>
 
-				
+
 				<div class="col-xs-6">
 					<p>
 						You have read <a href="/books/completedbook"><c:out
@@ -36,9 +36,8 @@
 						reviews so far!
 					</p>
 				</div>
-				</div>
 			</div>
 		</div>
+	</div>
 
-	</t:navigation>
-</body>
+</t:navigation>

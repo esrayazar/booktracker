@@ -147,8 +147,7 @@ public class UserController {
 	@PostMapping("user/edit/{id}")
 	public String update(@PathVariable("id") Long id, 
 			@ModelAttribute("user") User user,
-			BindingResult result, HttpSession session,
-			@RequestParam("mimage") MultipartFile file) throws IOException {
+			BindingResult result, HttpSession session) throws IOException {
 		userValidator.validate(user, result);
 		// Check if there is any active user session.
 		if(session.getAttribute("user__id") == null) return "redirect:/";
@@ -163,7 +162,7 @@ public class UserController {
 		if (editUser.getId().compareTo((Long) session.getAttribute("user__id")) != 0)
 			return "redirect:/dashboard";
 		
-		userService.updateUser(editUser, user, file);
+		userService.updateUser(editUser, user);
 		if (result.hasErrors()) {
 			return "edituser.jsp";
 		}

@@ -71,74 +71,72 @@
 			</div>
 		</nav>
 	</div>
-	<div class="container">
-		<div class="row">
-			<hr>
-			<div class="col-sm-3">
+	<form:form class="form" action="/user/edit/${user.id}" method="post"
+		modelAttribute="user" enctype="multipart/form-data">
+		<div class="container">
+			<div class="row">
+				<hr>
+				<div class="col-sm-3">
+					<!--left col-->
+					<div class="row">
+						<div class="col">
+							<h3>
+								<c:out value="${user.firstName}" />
+								<c:out value="${user.lastName}" />
+							</h3>
+							<hr>
+						</div>
+
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="text-center">
+								<img src="/get/image/byid/${user.image.id}"
+									class="avatar img-circle img-thumbnail" alt="avatar"> <input
+									type="file" class="text-center center-block file-upload"
+									name="imgfile" />
+							</div>
+
+							<div class="card" style="width: 14rem;">
+								<div class="card-header">
+									My Blog <i class="fa fa-link fa-1x"></i>
+								</div>
+								<div class="card-body">
+									<a href="*">myblog.com</a>
+								</div>
+							</div>
+
+							<div class="card" style="width: 14rem;">
+								<div class="card-header">
+									Activity <i class="fa fa-dashboard fa-1x"></i>
+								</div>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item text-right"><span
+										class="pull-left"><strong><a
+												href="/books/completedbook">Completed Book</a></strong></span> <c:out
+											value="${user.completedBooks.size()}"></c:out></li>
+									<li class="list-group-item text-right"><span
+										class="pull-left"><strong>Likes</strong></span> <c:out
+											value="${user.likedBooks.size()}"></c:out></li>
+									<li class="list-group-item text-right"><span
+										class="pull-left"><strong>Reviews</strong></span> <c:out
+											value="${user.reviews.size()}"></c:out></li>
+									<li class="list-group-item text-right"><span
+										class="pull-left"><strong><a href="/wishlist">
+													Wish List</a></strong> </span> <c:out value="${user.wishedBooks.size()}"></c:out></li>
+								</ul>
+							</div>
+							<!-- card -->
+						</div>
+						<!--/col-3-->
+					</div>
+					<!-- row -->
+				</div>
 				<!--left col-->
-				<div class="row">
-					<div class="col">
-						<h3>
-							<c:out value="${user.firstName}" />
-							<c:out value="${user.lastName}" />
-						</h3>
-						<hr>
-					</div>
-
-				</div>
-				<div class="row">
-					<div class="col">
-						<div class="text-center">
-							<img src="/get/image/byid/${user.image.id}"
-								class="avatar img-circle img-thumbnail" alt="avatar">
-							<c:if test="${not empty edit}">
-								<input type="file" class="text-center center-block file-upload"
-									name="mimage" />
-							</c:if>
-							<!-- <h6>Upload a different photo...</h6> -->
-							<!-- <input type="file" class="text-center center-block file-upload"
-							name="mimage"> -->
-						</div>
-
-						<div class="card" style="width: 14rem;">
-							<div class="card-header">
-								My Blog <i class="fa fa-link fa-1x"></i>
-							</div>
-							<div class="card-body">
-								<a href="*">myblog.com</a>
-							</div>
-						</div>
-
-						<div class="card" style="width: 14rem;">
-							<div class="card-header">
-								Activity <i class="fa fa-dashboard fa-1x"></i>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item text-right"><span
-									class="pull-left"><strong><a
-											href="/books/completedbook">Completed Book</a></strong></span> <c:out
-										value="${user.completedBooks.size()}"></c:out></li>
-								<li class="list-group-item text-right"><span
-									class="pull-left"><strong>Likes</strong></span> <c:out
-										value="${user.likedBooks.size()}"></c:out></li>
-								<li class="list-group-item text-right"><span
-									class="pull-left"><strong>Reviews</strong></span> <c:out
-										value="${user.reviews.size()}"></c:out></li>
-								<li class="list-group-item text-right"><span
-									class="pull-left"><strong><a href="/wishlist">
-												Wish List</a></strong> </span> <c:out value="${user.wishedBooks.size()}"></c:out></li>
-							</ul>
-						</div>
-						<!-- card -->
-					</div>
-					<!--/col-3-->
-				</div>
-				<!-- row -->
+				<jsp:doBody />
 			</div>
-			<!--left col-->
-			<jsp:doBody />
 		</div>
-	</div>
-	<!-- container -->
+		<!-- container -->
+	</form:form>
 </body>
 </html>
