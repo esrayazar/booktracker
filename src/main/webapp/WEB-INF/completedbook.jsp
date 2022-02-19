@@ -8,10 +8,18 @@
 <t:navigation>
 	<div class="col">
 		<div class="card center">
-			<div class="card-header">Did you finished book?</div>
+			<div class="card-header">Did you finish book?</div>
 			<div class="card-body">
-				<form action="/books/complete" method="get">
+			
+					
+			<form action="/books/complete" method="get">	
+			<div class="card-row">
+				<input type="date" name="date">
+					When did you finish?
+					</div>
+					<div class="card-row">
 					<input type="text" name="isbn">
+					</div>
 					<button class="btn btn-outline-secondary" type="submit">Complete
 						Book Reading</button>
 				</form>
