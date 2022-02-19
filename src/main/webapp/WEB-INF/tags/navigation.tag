@@ -32,11 +32,13 @@
 	integrity="sha512-yFjZbTYRCJodnuyGlsKamNE/LlEaEAxSUDe5+u61mV8zzqJVFOH7TnULE2/PP/l5vKWpUNnF4VGVkXh3MjgLsg=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 
 <body>
 	<div>
-		<nav class="navbar navbar-expand-xl navbar-light bg-light">
+		<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light"  >  
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/profile/${user.id}">MyBookee</a>
 				<button class="navbar-toggler" type="button"
@@ -76,6 +78,7 @@
 			<hr>
 			<div class="col-sm-3">
 				<!--left col-->
+				<hr>
 				<div class="row">
 					<div class="col">
 						<h3>
@@ -102,7 +105,7 @@
 
 						<div class="card" style="width: 14rem;">
 							<div class="card-header">
-								My Blog <i class="fa fa-link fa-1x"></i>
+								My Blog <i class="fa-brands fa-blogger-b"></i>
 							</div>
 							<div class="card-body">
 								<a href="*">myblog.com</a>
