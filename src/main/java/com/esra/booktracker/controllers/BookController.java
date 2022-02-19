@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.esra.booktracker.models.Book;
 import com.esra.booktracker.models.Rating;
@@ -205,7 +204,7 @@ public class BookController {
 	// Complete Reading a Book
 	@GetMapping("/complete")
 	public String completeBook(HttpSession session, @RequestParam(required = false) String isbn,
-			@RequestParam(required = false) String id, Model model) {
+			@RequestParam(required = false) String date, Model model) {
 		// Check if there is any active user session.
 		if (session.getAttribute("user__id") == null)
 			return "redirect:/";
@@ -222,11 +221,9 @@ public class BookController {
 					model.addAttribute("error", "You have already read this book!");
 				}
 			}
-
+			if (book != null)
+				return "redirect:/dashboard";
 		}
-		if (id != null)
-			return "redirect:/books/" + id;
-		else
 			return "completedbook.jsp";
 	}
 
@@ -261,23 +258,24 @@ public class BookController {
 		if (book_id != null) {
 			User user = this.userService.findOneUser((Long) session.getAttribute("user__id"));
 			Book book = bookService.getBookById(book_id);
+			
 			if (book != null) {
 				model.addAttribute("book", book);
 			}
 			model.addAttribute("user", user);
-
+			
+			/*
+			if(book.getReviews() != null)
 			for (Review rev : book.getReviews()) {
-				if (rev.getReviewedBy().getId() == user.getId()) {
+				if (rev.getReviewedBy().getId().compareTo(user.getId()) == 0) {
 					model.addAttribute("newReview", rev);
 					break;
 				}
 			}
-
+			 */
 			return "addreview.jsp";
 		}
-//			bookService.AddReview(review);
 		return "redirect:/dashboard";
-
 	}
 
 	// Add Review
@@ -315,6 +313,23 @@ public class BookController {
 
 		}
 		return "redirect:/";
+	}
+	
+	@GetMapping("/{id}/reviews")
+	public String getAllReviews(HttpSession session, @PathVariable("id") Long bookId, Model model)
+	{
+		if (session.getAttribute("user__id") == null)
+			return "redirect:/";
+		User user = this.userService.findOneUser((Long) session.getAttribute("user__id"));
+		model.addAttribute("user", user);
+		if (bookId != null) {
+			Book book = bookService.getBookById(bookId);
+			if (book != null) {
+				model.addAttribute("book", book);
+			}
+		}
+		
+		return "bookreviews.jsp";
 	}
 
 }
