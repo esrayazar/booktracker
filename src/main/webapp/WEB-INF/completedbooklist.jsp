@@ -5,62 +5,82 @@
 <%@ page isErrorPage="true"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:navigation>
+
 	<div class="col-sm-9">
-	
+	<hr>
+	<h2>My Completed Book List</h2>
+<hr>
 		<c:forEach items="${user.completedBooks}" var="book">
 
-			<div class="col-sm-6 display:inline-block flex-wrap">
-				<div class="container">
-					<div class="row">
-						<h4 class="text-center">
-							<strong><c:out value="${book.title}" /></strong>
-						</h4>
-						<div class="card-group fd-flex  border" style="height: 350px"
-							style="width: 25rem">
-							<hr>
+			<div class="card" style="width: 40rem">
+				<div class="card-header">
+					<span> <a href="/books/${book.id}"> ${book.title}</a></span><span class="float-end"><strong>Genre:
+					</strong>${book.genre}</span>
+				</div>
+				<div class="card-body">
+					<div class="display:inline-block flex-wrap">
+						<div class="container">
+							<div class="row">
 
-							<hr>
-							<div class="profile-card-4 text-center">
-								<img src="/get/image/byid/${book.image.id}"
-									class="img img-responsive">
-								<div class="profile-content">
-
-
-									<div class="profile-description">
-										<c:out value="${book.genre}" />
+								<div class="card-group fd-flex  border" style="width: 35rem">
+									<div class="col">
+										<div class="profile-card-4 text-center">
+											<img src="/get/image/byid/${book.image.id}"
+												class="img img-responsive">
+										</div>
 									</div>
-									<div class="row">
-										<div class="col-xs-4">
-											<div class="profile-overview">
-												<p>LIKES</p>
-												<h4>
-													<c:out value="${book.likers.size()}"></c:out>
-												</h4>
-											</div>
+									<div class="col text-center">
+										<div class="row">
+											<div class="col">LIKES</div>
+											<div class="col">REVIEW</div>
+											<div class="col">RATING</div>
 										</div>
-										<div class="col-xs-4">
-											<div class="profile-overview">
-												<p>REVIEW</p>
-												<h4>
-													<c:out value="${book.reviews.size()}"></c:out>
-												</h4>
-											</div>
-										</div>
-										<div class="col-xs-4">
-											<div class="profile-overview">
-												<p>RATING</p>
-												<h4>
-													<c:out value="${book.likers.size()}"></c:out>
-												</h4>
-											</div>
+										<div class="row">
+											<div class="col">${book.likers.size()}</div>
+											<div class="col">${book.reviews.size()}</div>
+											<div class="col">${book.likers.size()}</div>
+
 										</div>
 									</div>
 								</div>
+
 							</div>
 						</div>
 					</div>
+
 				</div>
+				<div class="card-footer">
+				<span> By ${book.author}</span>
+				<span class="float-end">
+			
+							<c:choose>
+								<c:when test="${book.likers.contains(user)}">
+
+									<a href="/books/${book.id}/unlike/bookprofile"><i
+										class="fa-regular fa-thumbs-down fa-1x"></i> </a>
+								</c:when>
+								<c:otherwise>
+									<a href="/books/${book.id}/like/bookprofile"><i
+										class="fa-regular fa-thumbs-up fa-1x"></i> </a>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${book.wishList.contains(user)}">
+									<a href="/books/${book.id}/wish/remove/bookprofile"> <i
+										class="fa-solid fa-heart fa-1x"></i></a>
+								</c:when>
+								<c:otherwise>
+									<a href="/books/${book.id}/wish/add/bookprofile"> <i
+										class="fa-regular fa-heart fa-1x"></i></a>
+								</c:otherwise>
+							</c:choose>
+							<a href="/books/addreview?book_id=${book.id}"><i
+								class="fa-solid fa-comments fa-1x"></i></a>
+						
+						</span>
+					</div>
 			</div>
+<br>
 
 		</c:forEach>
 	</div>
