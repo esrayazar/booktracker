@@ -8,10 +8,11 @@
 
 	<div class="col-sm-9">
 
-		<section class="section about-section gray-bg" id="about">
+		<section class="section about-section gray-md" id="about">
 
 			<div class="row align-items-center flex-row-reverse">
 				<div class="col-sm-6">
+				
 					<div class="about-text go-to">
 						<h3 class="dark-color">
 							About Me <a href="/user/edit/${user.id}"><i
@@ -50,6 +51,7 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
+				
 					<div class="about-avatar">
 						<img src="/get/image/byid/${user.image.id}" title="" alt="user profile picture">
 					</div>
@@ -84,7 +86,7 @@
 					<div class="col-6 col-lg-3">
 						<div class="count-data text-center">
 							<h6 class="count h2" data-to="190" data-speed="190">
-								<c:out value="${user.wishedBooks.size()}"></c:out>
+								<c:out value="${user.completedBooks.size()}"></c:out>
 							</h6>
 							<p class="m-0px font-w-600">Completed Book</p>
 						</div>
