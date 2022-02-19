@@ -8,10 +8,13 @@
 
 <t:navigation>
 
-	<!-- 	 style="background-image: url('/img/bookbackground-heart.jpeg');height: auto;" -->
-	<div class="col-sm-6">
-		<div class="card center">
-			<div class="card-body">
+	<!-- 	 style="background-image: url('/img/bookback.jpeg');height: auto;" -->
+	
+	<div class="col-sm-6 " style="background-image: url('/img/photo.jpeg');height: auto;">
+	
+		<div class="card center" >
+			<div class="card-body" >
+			
 				<div class="col-xs-6">
 					<p>
 						You have <a href="/wishlist"><c:out
@@ -38,6 +41,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 
 </t:navigation>
