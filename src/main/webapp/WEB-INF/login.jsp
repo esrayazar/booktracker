@@ -35,7 +35,7 @@
               
                 </div>
                 <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Sign In</button>
+                  <button type="submit" class="btn btn-outline-secondary btn-block btn-lg gradient-custom-4 text-body">Sign In</button>
                 </div>
 
                 <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="/register" class="fw-bold text-body"><u>Register</u></a></p>
