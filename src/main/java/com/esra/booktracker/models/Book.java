@@ -1,5 +1,6 @@
 package com.esra.booktracker.models;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
@@ -41,7 +43,10 @@ public class Book {
 	private String genre;
 	private String description;
 	private String imgUrl;
-	
+	@DateTimeFormat(pattern = "yyy-MM-DD HH:mm:ss")
+	private Date createdAt;
+	@DateTimeFormat(pattern = "yyy-MM-DD HH:mm:ss")
+	private Date updatedAt;
 	@Column(unique=true)
 	private String isbn;
 	
