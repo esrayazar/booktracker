@@ -5,7 +5,8 @@
 <%@ page isErrorPage="true"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:navigation>
-	<body>
+	
+	<div class="col-lg-7">
 	<div class="container">
 		<%--  <div class="row">
 				<div class="d-sm-table-cell p-2 bd-highlight">
@@ -55,7 +56,7 @@
       <div class="form-group">
 	        <form:label path="review">Review</form:label>
 	        <form:errors class="text-danger" path="review"/>
-	        <form:input class="form-control" path="review"/>
+	        <form:textarea class="form-control" path="review"/>
 	    </div>
 	    <form:input type="hidden" value="${newReview.id}" path="id"/>
 	      <!-- Hidden Input for userId -->
@@ -65,9 +66,6 @@
 	     <button>Review it!!</button>
 </form:form>
 </c:if>
-	
-	
-	
 
 </body>
 </t:navigation>
