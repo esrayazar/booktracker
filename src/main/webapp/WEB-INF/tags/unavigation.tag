@@ -36,7 +36,7 @@
 
 <body>
 	<div>
-		<nav class="navbar navbar-expand-xl navbar-light bg-light">
+		<nav class="navbar fixed-top navbar-expand-xl navbar-light bg-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/profile/${user.id}">MyBookee</a>
 				<button class="navbar-toggler" type="button"
@@ -91,10 +91,12 @@
 					<div class="row">
 						<div class="col">
 							<div class="text-center">
+							
 								<img src="/get/image/byid/${user.image.id}"
-									class="avatar img-circle img-thumbnail" alt="avatar"> <input
+									class="avatar img-circle img-thumbnail" alt="avatar">  <input
 									type="file" class="text-center center-block file-upload"
 									name="imgfile" />
+									
 							</div>
 
 							<div class="card" style="width: 14rem;">
