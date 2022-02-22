@@ -8,13 +8,13 @@
 
 	<div class="col-sm-9">
 	<hr>
-	<h2>My Completed Book List</h2>
+	<h2> <i class="fa-solid fa-book"></i> My Completed Book List </h2>
 <hr>
 		<c:forEach items="${user.completedBooks}" var="book">
 
 			<div class="card" style="width: 40rem">
 				<div class="card-header">
-					<span> <a href="/books/${book.id}"> ${book.title}</a></span><span class="float-end"><strong>Genre:
+					<span> <a href="/books/${book.id}"><h3> ${book.title}</h3></a></span><span class="float-end"><strong>Genre:
 					</strong>${book.genre}</span>
 				</div>
 				<div class="card-body">
@@ -57,11 +57,11 @@
 								<c:when test="${book.likers.contains(user)}">
 
 									<a href="/books/${book.id}/unlike/bookprofile"><i
-										class="fa-regular fa-thumbs-down fa-1x"></i> </a>
+										class="fa-regular fa-thumbs-down fa-1x"></i></a>
 								</c:when>
 								<c:otherwise>
 									<a href="/books/${book.id}/like/bookprofile"><i
-										class="fa-regular fa-thumbs-up fa-1x"></i> </a>
+										class="fa-regular fa-thumbs-up fa-1x"></i></a>
 								</c:otherwise>
 							</c:choose>
 							<c:choose>
