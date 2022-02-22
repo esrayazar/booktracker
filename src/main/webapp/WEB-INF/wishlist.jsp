@@ -8,7 +8,9 @@
 
 <div class="col-sm-9">
 	<hr>
-	<h2>I want to read:</h2>
+	<h2>
+	<i class="fa-solid fa-book-open-reader"></i>
+	I want to read:</h2>
 <hr>
 		<c:forEach items="${user.wishedBooks}" var="book">
 
@@ -57,11 +59,11 @@
 								<c:when test="${book.likers.contains(user)}">
 
 									<a href="/books/${book.id}/unlike/bookprofile"><i
-										class="fa-regular fa-thumbs-down fa-1x"></i> </a>
+										class="fa-regular fa-thumbs-down fa-1x"></i></a>
 								</c:when>
 								<c:otherwise>
 									<a href="/books/${book.id}/like/bookprofile"><i
-										class="fa-regular fa-thumbs-up fa-1x"></i> </a>
+										class="fa-regular fa-thumbs-up fa-1x"></i></a>
 								</c:otherwise>
 							</c:choose>
 							<c:choose>
