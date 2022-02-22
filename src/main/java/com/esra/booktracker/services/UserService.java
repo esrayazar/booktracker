@@ -6,7 +6,6 @@ import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.esra.booktracker.models.Image;
 import com.esra.booktracker.models.User;
@@ -52,7 +51,7 @@ public class UserService {
 		return this.userRepository.findByEmail(email);
 	}
 	
-	public void updateUser(User user, User edited, MultipartFile file) throws IOException {
+	public void updateUser(User user, User edited) throws IOException {
 		user.setFirstName(edited.getFirstName());
 		user.setLastName(edited.getLastName());
 		user.setEmail(edited.getEmail());
@@ -62,18 +61,18 @@ public class UserService {
 		user.setCountry(edited.getCountry());
 		user.setBio(edited.getBio());
 		
-		if(!file.getOriginalFilename().isEmpty())
+		if(edited.getImgfile()!=null && !edited.getImgfile().getOriginalFilename().isEmpty())
 		{
 			// if book has already a profile picture
 			if (user.getImage() != null) {
 				Image image = imageRepository.findById(user.getImage().getId()).get();
-				image.setName(file.getOriginalFilename());
-				image.setType(file.getContentType());
-				image.setImage(ImageUtility.compressImage(file.getBytes()));
+				image.setName(edited.getImgfile().getOriginalFilename());
+				image.setType(edited.getImgfile().getContentType());
+				image.setImage(ImageUtility.compressImage(edited.getImgfile().getBytes()));
 				imageRepository.save(image);
 			} else {
-				imageRepository.save(Image.builder().name(file.getOriginalFilename()).type(file.getContentType()).user(user)
-						.image(ImageUtility.compressImage(file.getBytes())).build());
+				imageRepository.save(Image.builder().name(edited.getImgfile().getOriginalFilename()).type(edited.getImgfile().getContentType()).user(user)
+						.image(ImageUtility.compressImage(edited.getImgfile().getBytes())).build());
 			}
 		}
 		
