@@ -27,6 +27,7 @@
                 <div class="form-outline mb-4">
                   <input class="form-control form-control-lg" id="email" name="loginEmail"/>
                   <label  for="email" class="form-label">Email</label>
+                  
                 </div>
                
                 <div class="form-outline mb-4">
