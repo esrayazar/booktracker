@@ -27,30 +27,30 @@
                 <div class="form-outline mb-4">
                   <form:input class="form-control form-control-lg" path="firstName"/>
                   <form:label  path="firstName" class="form-label">First Name</form:label>
-                  <form:errors path="firstName"/>
+                  <form:errors class="text-danger" path="firstName"/>
                 </div>
                 <div class="form-outline mb-4">
                   <form:input class="form-control form-control-lg" path="lastName"/>
                   <form:label  path="lastName" class="form-label" >Last Name</form:label>
-                  <form:errors path="lastName"/>
+                  <form:errors class="text-danger" path="lastName"/>
                 </div>
 
                 <div class="form-outline mb-4">
                   <form:input type="email" class="form-control form-control-lg" path="email" />
                   <form:label path="email"  class="form-label">Email</form:label>
-                  <form:errors path="email"/>
+                  <form:errors class="text-danger" path="email"/>
                 </div>
 
                 <div class="form-outline mb-4">
                   <form:input type="password"  class="form-control form-control-lg" path="password" />
                   <form:label path="password"  class="form-label" >Password</form:label>
-                  <form:errors path="password"/>
+                  <form:errors class="text-danger" path="password"/>
                 </div>
 
                 <div class="form-outline mb-4">
                   <form:input type="password" class="form-control form-control-lg" path="confirmPassword" />
                   <form:label class="form-label" path="confirmPassword" >Repeat your password</form:label>
-                  <form:errors path="confirmPassword"/>
+                  <form:errors class="text-danger" path="confirmPassword"/>
                 </div>
 
                 <div class="d-flex justify-content-center">
