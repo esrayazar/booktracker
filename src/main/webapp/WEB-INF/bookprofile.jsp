@@ -4,17 +4,35 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page isErrorPage="true"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+
+<script type="text/javascript" src="/js/rating.js"></script>
+
 <t:navigation>
 
+		<c:forEach items="${book.ratings}" var="rating">
+			<c:set var="count" value="${count + rating.rating}" scope="page" />
+			<c:if test="${rating.ratedBy.id eq user.id}">
+				<c:set var="ratedbyUser" value="true" />
+				<c:set var="rated_val" value="${rating.rating}" />
+				<c:set var="rated_id" value="${rating.id}" />
+			</c:if>
+		</c:forEach>
+		
+		<c:if test="${count>0}">
+			<c:set var="rate_avg" value="${count / book.ratings.size()}" />
+		</c:if>
+		
+
+		
 
 	<div class="col-lg-7">
-	<hr>
+		<hr>
 		<section class="section about-section gray-md" id="about">
 
 			<div class="row align-items-center flex-row-reverse">
-			
+
 				<div class="col-lg-3">
-				<hr>
+					<hr>
 					<div class="row">
 
 						<div class="col-sm-3">
@@ -90,6 +108,30 @@
 					<div class="about-avatar">
 						<img src="/get/image/byid/${book.image.id}" title=""
 							alt="user profile picture">
+							<hr>
+							<div class="row">
+							<span class="text-center">Avg Rating: ${rate_avg}</span>
+							</div>
+							
+							<div class="row">
+							<span class="text-center">Your Rating: ${rated_val}</span>
+							</div>
+							
+							<div class="rating">
+							<input type="radio" name="rating" value="5" id="5" onclick="submitRating(5)">
+							<label for="5">☆</label> 
+							<input type="radio" name="rating" value="4" id="4" onclick="submitRating(4)">
+							<label for="4">☆</label> 
+							<input type="radio" name="rating" value="3" id="3" onclick="submitRating(3)">
+							<label for="3">☆</label>
+							<input type="radio" name="rating" value="2" id="2" onclick="submitRating(2)">
+							<label for="2">☆</label> 
+							<input type="radio" name="rating" value="1" id="1" onclick="submitRating(1)">
+							<label for="1">☆</label>
+							</div>
+							<c:if test="${ratedbyUser eq true}">
+							<script type="text/javascript">readRating(${rated_val})</script>
+							</c:if>	
 					</div>
 				</div>
 
@@ -139,6 +181,15 @@
 		</section>
 
 	</div>
+	
+			<form id="ratingForm" action="/books/addrating" method="post">
+				<input type="hidden" id="rateid" name="id" value="${rated_id}"/>
+				<input type="hidden" id="rateval" name="rating" />
+				<!-- Hidden Input for userId -->
+				<input type="hidden" value="${user.id}" name="ratedBy" />
+				<!-- Hidden Input for BookId -->
+				<input type="hidden" value="${book.id}" name="ratedBook" />
+			</form>
 
 	<!--  like-review-favorites -->
 
