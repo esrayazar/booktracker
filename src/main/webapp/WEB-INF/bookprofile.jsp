@@ -72,7 +72,9 @@
 							<div class="col">
 								<h3 class="dark-color">
 									<c:out value="${book.title}" />
-									<a href="/books/edit/${book.id}"><i class="fa fa-edit"></i></a>
+								<c:if test="${book.user.id eq user.id}">
+										<a href="/books/edit/${book.id}"><i class="fa fa-edit"></i></a>
+										</c:if>
 								</h3>
 							</div>
 
@@ -106,8 +108,9 @@
 
 				<div class="col-lg-3">
 					<div class="about-avatar">
+					<a href="/get/image/byid/${book.image.id}" target="_blank">
 						<img src="/get/image/byid/${book.image.id}" title=""
-							alt="user profile picture">
+							alt="user profile picture"></a>
 							<hr>
 							<div class="row">
 							<span class="text-center">Avg Rating: ${rate_avg}</span>
