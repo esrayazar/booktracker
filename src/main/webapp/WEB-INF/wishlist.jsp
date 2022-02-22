@@ -27,8 +27,10 @@
 								<div class="card-group fd-flex  border" style="width: 35rem">
 									<div class="col">
 										<div class="profile-card-4 text-center">
+										<a href="/get/image/byid/${book.image.id}" target="_blank">
 											<img src="/get/image/byid/${book.image.id}"
 												class="img img-responsive">
+												</a>
 										</div>
 									</div>
 									<div class="col text-center">
