@@ -1,7 +1,11 @@
 package com.esra.booktracker.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -23,7 +27,9 @@ import com.esra.booktracker.models.Review;
 import com.esra.booktracker.models.User;
 import com.esra.booktracker.services.BookService;
 import com.esra.booktracker.services.UserService;
+import com.esra.booktracker.utility.SortUtility;
 import com.esra.booktracker.validators.BookValidator;
+
 
 @Controller
 @RequestMapping("/books")
@@ -136,7 +142,9 @@ public class BookController {
 	}
 
 	@GetMapping("/search")
-	public String search(@RequestParam String term, HttpSession session, Model viewModel,
+	public String search(@RequestParam String term, @RequestParam String method,
+			@RequestParam String by,
+			HttpSession session, Model viewModel,
 			@ModelAttribute("book") Book book) {
 		// Check if there is any active user session.
 		if (session.getAttribute("user__id") == null)
@@ -144,11 +152,50 @@ public class BookController {
 		User user = this.userService.findOneUser((Long) session.getAttribute("user__id"));
 		viewModel.addAttribute("user", user);
 		if (term != null) {
+			
 			List<Book> books = bookService.searchBook(term);
-			viewModel.addAttribute("books", bookService.searchBook(term));
+			
 			if (books.size() == 0) {
 				viewModel.addAttribute("message", term + " Did not return any result :(");
+			} else {
+				//SortUtility su = new SortUtility();
+				//List<Book> result = null;
+				switch(by) {
+					case "likes":
+						if(method.equals("asc")) {
+							Collections.sort(books, new SortLikesAsc());
+							//result = su.sortByLikeAsc(books);
+						} else {
+							Collections.sort(books, new SortLikesDesc());
+						}
+						break;
+					case "ratings":
+						if(method.equals("asc")) {
+							Collections.sort(books, new SortRatingsAsc());
+						} else {
+							Collections.sort(books, new SortRatingsDesc());
+						}
+						break;
+					case "reviews":
+						if(method.equals("asc")) {
+							Collections.sort(books, new SortReviewsAsc());
+						} else {
+							Collections.sort(books, new SortReviewsDesc());
+						}
+						break;
+					case "wish":
+						if(method.equals("asc")) {
+							Collections.sort(books, new SortWishAsc());
+						} else {
+							Collections.sort(books, new SortWishDesc());
+						}
+						break;
+				}
+				
+				viewModel.addAttribute("books", books);
+				viewModel.addAttribute("term", term);
 			}
+			
 		}
 		return "searchpage.jsp";
 	}
@@ -332,4 +379,90 @@ public class BookController {
 		return "bookreviews.jsp";
 	}
 
+
 }
+
+class SortLikesAsc implements Comparator<Book>
+{
+    // Used for sorting in ascending order of
+    // roll number
+    public int compare(Book a, Book b)
+    {
+    	System.out.println("a="+a.getLikers().size());
+    	System.out.println("b="+b.getLikers().size());
+        return a.getLikers().size() - b.getLikers().size();
+    }
+}
+
+class SortLikesDesc implements Comparator<Book>
+{
+    // Used for sorting in ascending order of
+    // roll number
+    public int compare(Book a, Book b)
+    {
+        return  b.getLikers().size() - a.getLikers().size();
+    }
+}
+
+
+class SortReviewsAsc implements Comparator<Book>
+{
+    // Used for sorting in ascending order of
+    // roll number
+    public int compare(Book a, Book b)
+    {
+        return a.getReviews().size() - b.getReviews().size();
+    }
+}
+
+class SortReviewsDesc implements Comparator<Book>
+{
+    // Used for sorting in ascending order of
+    // roll number
+    public int compare(Book a, Book b)
+    {
+        return  b.getReviews().size() - a.getReviews().size();
+    }
+}
+
+class SortRatingsAsc implements Comparator<Book>
+{
+    // Used for sorting in ascending order of
+    // roll number
+    public int compare(Book a, Book b)
+    {
+        return a.getRatings().size() - b.getRatings().size();
+    }
+}
+
+class SortRatingsDesc implements Comparator<Book>
+{
+    // Used for sorting in ascending order of
+    // roll number
+    public int compare(Book a, Book b)
+    {
+        return  b.getRatings().size() - a.getRatings().size();
+    }
+}
+
+
+class SortWishAsc implements Comparator<Book>
+{
+    // Used for sorting in ascending order of
+    // roll number
+    public int compare(Book a, Book b)
+    {
+        return a.getWishList().size() - b.getWishList().size();
+    }
+}
+
+class SortWishDesc implements Comparator<Book>
+{
+    // Used for sorting in ascending order of
+    // roll number
+    public int compare(Book a, Book b)
+    {
+        return  b.getWishList().size() - a.getWishList().size();
+    }
+}
+
