@@ -7,10 +7,11 @@
 <t:navigation>
 
 	<div class="col-sm-9">
-
-		<section class="section about-section gray-md" id="about">
+<hr>
+		<section class="section about-section gray-sm" id="about">
 
 			<div class="row align-items-center flex-row-reverse">
+			<hr>
 				<div class="col-sm-6">
 				
 					<div class="about-text go-to">
