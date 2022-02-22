@@ -11,34 +11,45 @@
 	<script>
 		AOS.init();
 	</script>
-	
-	<div class="col-lg-7">
-	<hr>
-		<div class="container d-flex justify-content-center mt-5 mb-5">
-			<div class="d-flex flex-column">
-				<c:forEach items="${book.reviews}" var="review">
 
-					<div class="card p-2 mb-2" data-aos="flip-right"
-						style="background-color: #fff">
-						<div class="card-body">
-							<p>${review.review.trim()}</p>							
-							
-						</div>
-						<div class="card-footer">
-							By ${review.reviewedBy.firstName} ${review.reviewedBy.lastName}
-							<c:if test="${review.reviewedBy.id eq user.id}">
+	<div class="col-lg-7">
+		<hr>
+
+		<div class="container d-flex justify-content-center mt-5 mb-5">
+			<hr>
+			<div>
+				<h3>${book.title}</h3>
+				<hr>
+				<div>
+				<c:if test="${book.reviews.size()==0}">
+				No book review yet :( (<a href="/books/addreview?book_id=${book.id}">Add a book review</a>)
+				</c:if>
+				</div>
+
+				<div class="d-flex flex-column">
+					<c:forEach items="${book.reviews}" var="review">
+
+						<div class="card p-2 mb-2" data-aos="flip-right"
+							style="background-color: #fff">
+							<div class="card-body">
+								<p>${review.review.trim()}</p>
+
+							</div>
+							<div class="card-footer">
+								By <a href="/profile/${review.reviewedBy.id}">${review.reviewedBy.firstName} ${review.reviewedBy.lastName}</a>
+								<c:if test="${review.reviewedBy.id eq user.id}">
 						(<a href="/books/addreview?book_id=${book.id}">Edit</a>)
 				(<a href="/books/${book.id}/review/${review.id}/delete/bookprofile">Delete</a>)
 			</c:if>
+							</div>
+
+
 						</div>
-
-
-					</div>
-<hr>
-				</c:forEach>
+						<hr>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
-
 		<!--  <div class="card p-2 mb-2" data-aos="fade-bottom">
             <h5>Internet are about things</h5>
             <p>Aliquam ultrices sagittis orci a scelerisque purus semper. Suspendisse in est ante in. Tortor pretium viverra suspendisse potenti nullam ac. Gravida quis blandit turpis cursus in. Nunc sed id semper risus in hendrerit gravida.</p>
