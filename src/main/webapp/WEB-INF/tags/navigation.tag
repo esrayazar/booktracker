@@ -34,13 +34,14 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 </head>
 
 <body>
 	<div>
 		<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light"  >  
 			<div class="container-fluid">
-				<a class="navbar-brand" href="/profile/${user.id}">MyBookee</a>
+				<a class="navbar-brand" href="/profile/${not empty userId ? userId : user.id}">MyBookee</a>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarBasic"
 					aria-controls="navbarBasic" aria-expanded="false"
@@ -64,9 +65,13 @@
 						</li>
 					</ul>
 					<form action="/books/search" method="get" class="d-flex">
+					
 						<input class="form-control me-2" name="term" type="text"
+						
 							placeholder="search books ISBN, name, author etc"
 							aria-label="Search">
+						<input type="hidden" name="method" value="asis">
+						<input type="hidden" name="by" value="asis">
 						<button class="btn btn-outline-secondary" type="submit">Search</button>
 					</form>
 				</div>
