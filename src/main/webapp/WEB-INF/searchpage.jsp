@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page isErrorPage="true"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<script type="text/javascript" src="/js/rating.js"></script>
 <t:navigation>
 	<div class="col-md-6">
 		<hr>
@@ -40,11 +41,13 @@
 		</div>
 
 		<c:forEach items="${books}" var="book">
+		
 			<section class="section about-section gray-md" id="about">
 				<div class="row align-items-center flex-row-reverse" >
 					<div class="col-lg-3">
 						<hr>
 						<div class="row">
+						
 							<div class="col-sm-3">
 								<c:choose>
 									<c:when test="${book.likers.contains(user)}">
@@ -81,8 +84,9 @@
 								<div class="col">
 									<h4 class="dark-color">
 									<a href="/books/${book.id}">${book.title}</a>
-									
+								<c:if test="${book.user.id eq user.id}">
 										<a href="/books/edit/${book.id}"><i class="fa fa-edit"></i></a>
+										</c:if>
 									</h4>
 								</div>
 
@@ -116,8 +120,10 @@
 
 					<div class="col-lg-3">
 						<div class="about-avatar">
+						<a href="/get/image/byid/${book.image.id}" target="_blank">
 							<img src="/get/image/byid/${book.image.id}" title=""
 								alt="user profile picture">
+						</a>
 						</div>
 					</div>
 
@@ -181,5 +187,20 @@
 			</div>
 
 		</c:if>
+		<%-- <div class="col-lg-3">
+		<c:forEach items="${book.ratings}" var="rating">
+			<c:set var="count" value="${count + rating.rating}" scope="page" />
+			<c:if test="${rating.ratedBy.id eq user.id}">
+				<c:set var="ratedbyUser" value="true" />
+				<c:set var="rated_val" value="${rating.rating}" />
+				<c:set var="rated_id" value="${rating.id}" />
+			</c:if>
+		</c:forEach>
+		
+		<c:if test="${count>0}">
+			<c:set var="rate_avg" value="${count / book.ratings.size()}" />
+		</c:if>
+		
+		</div> --%>
 	</div>
 </t:navigation>
