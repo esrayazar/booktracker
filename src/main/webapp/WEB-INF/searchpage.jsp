@@ -7,21 +7,47 @@
 <t:navigation>
 	<div class="col-md-6">
 		<hr>
+		<div class="row">
+			<div class="col">Sort By</div>
+			<div class="col">
+				Like <a href="/books/search?term=${term}&method=asc&by=likes"><i
+					class="fas fa-arrow-up"></i></a> <a
+					href="/books/search?term=${term}&method=desc&by=likes"><i
+					class="fas fa-arrow-down"></i></a>
+			</div>
+			<div class="col">
+				Reviews <a href="/books/search?term=${term}&method=asc&by=reviews"><i
+					class="fas fa-arrow-up"></i></a> <a
+					href="/books/search?term=${term}&method=desc&by=reviews"><i
+					class="fas fa-arrow-down"></i></a>
+			</div>
+			<div class="col">
+				Ratings <a href="/books/search?term=${term}&method=asc&by=ratings"><i
+					class="fas fa-arrow-up"></i></a> <a
+					href="/books/search?term=${term}&method=desc&by=ratings"><i
+					class="fas fa-arrow-down"></i></a>
+			</div>
+			<div class="col">
+				Wish <a href="/books/search?term=${term}&method=asc&by=wish"><i
+					class="fas fa-arrow-up"></i></a> <a
+					href="/books/search?term=${term}&method=desc&by=wish"><i
+					class="fas fa-arrow-down"></i></a>
+			</div>
+		</div>
+		<hr>
+		<div class="row" id="result">
+		<span class="text-center">${books.size()} result(s) found.</span>
+		</div>
+
 		<c:forEach items="${books}" var="book">
-
-
 			<section class="section about-section gray-md" id="about">
-
-				<div class="row align-items-center flex-row-reverse">
-
+				<div class="row align-items-center flex-row-reverse" >
 					<div class="col-lg-3">
 						<hr>
 						<div class="row">
-
 							<div class="col-sm-3">
 								<c:choose>
 									<c:when test="${book.likers.contains(user)}">
-
 										<a href="/books/${book.id}/unlike/bookprofile"><i
 											class="fa-regular fa-thumbs-down fa-2x"></i> </a>
 									</c:when>
@@ -54,7 +80,8 @@
 							<div class="row">
 								<div class="col">
 									<h4 class="dark-color">
-										<c:out value="${book.title}" />
+									<a href="/books/${book.id}">${book.title}</a>
+									
 										<a href="/books/edit/${book.id}"><i class="fa fa-edit"></i></a>
 									</h4>
 								</div>
@@ -140,19 +167,19 @@
 			</section>
 			<hr>
 		</c:forEach>
+		<c:if test="${empty message}">
+		<a href="#result" class="float-end">Go Top</a>
+		</c:if>
 		<c:if test="${not empty message}">
 			<div class="alert alert-info alert-dismissible fade show center">
 				<strong>Hey <c:out value="${user.firstName}" /> !
 				</strong>
 				<c:out value="${message}"></c:out>
-				<br>
-				<a href="/books/create" class="alert-link">Do you want to add
-					book? </a>.
+				<br> <a href="/books/create" class="alert-link">Do you want
+					to add book? </a>.
 				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 			</div>
 
 		</c:if>
 	</div>
-
-
 </t:navigation>
