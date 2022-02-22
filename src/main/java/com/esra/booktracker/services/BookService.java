@@ -32,8 +32,10 @@ public class BookService {
 	ImageRepository imageRepository;
 
 	// Create
-	public Book create(Book book) {
-		return this.bookRepository.save(book);
+	public Book create(Book book) throws IOException {
+		Book saved = this.bookRepository.save(book);
+		this.imageSaveHelper(saved, book.getImgfile());
+		return saved;
 	}
 
 	// find all
@@ -48,7 +50,7 @@ public class BookService {
 	}
 
 	// Update
-	public Book updateBook(Long id, Book edited, MultipartFile file) throws IOException {
+	public Book updateBook(Long id, Book edited) throws IOException {
 		Book book = getOneBook(id);
 		book.setAuthor(edited.getAuthor());
 		book.setDescription(edited.getDescription());
@@ -56,24 +58,28 @@ public class BookService {
 		book.setIsbn(edited.getIsbn());
 		book.setTitle(edited.getTitle());
 		book.setYear(edited.getYear());
-		
-		if(!file.getOriginalFilename().isEmpty())
+		this.imageSaveHelper(book, edited.getImgfile());
+		return bookRepository.save(book);
+	}
+	
+	private void imageSaveHelper(Book book, MultipartFile imgFile) throws IOException
+	{
+		if(imgFile != null && !imgFile.getOriginalFilename().isBlank())
 		{
 			// if book has already a profile picture
 			if (book.getImage() != null) {
 				Image image = imageRepository.findById(book.getImage().getId()).get();
-				image.setName(file.getOriginalFilename());
-				image.setType(file.getContentType());
-				image.setImage(ImageUtility.compressImage(file.getBytes()));
+				image.setName(book.getImgfile().getOriginalFilename());
+				image.setType(book.getImgfile().getContentType());
+				image.setImage(ImageUtility.compressImage(book.getImgfile().getBytes()));
 				imageRepository.save(image);
 			} else {
-				imageRepository.save(Image.builder().name(file.getOriginalFilename()).type(file.getContentType()).book(book)
-						.image(ImageUtility.compressImage(file.getBytes())).build());
+				imageRepository.save(Image.builder()
+						.name(imgFile.getOriginalFilename())
+						.type(imgFile.getContentType()).book(book)
+						.image(ImageUtility.compressImage(imgFile.getBytes())).build());
 			}
 		}
-		
-
-		return bookRepository.save(book);
 	}
 
 	// Delete
