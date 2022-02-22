@@ -135,6 +135,7 @@ public class BookController {
 
 		this.bookService.deleteBook(id);
 		return "redirect:/dashboard";
+//		return "searchpage.jsp";
 	}
 
 	@GetMapping("/search")
