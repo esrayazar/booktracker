@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.esra.booktracker.models.User;
@@ -118,11 +117,14 @@ public class UserController {
 	}
 	
 	@GetMapping("/profile/{id}")
-	public String userProfile(HttpSession session, Model viewModel, @ModelAttribute("user") User user) {
+	public String userProfile(HttpSession session, Model viewModel, @PathVariable("id") Long id) {
 		// Check if there is any active user session.
 		if(session.getAttribute("user__id") == null) return "redirect:/";
-		User currentUser = this.userService.findOneUser((Long) session.getAttribute("user__id"));
-		viewModel.addAttribute("user", currentUser);
+		User user = this.userService.findOneUser(id);
+		if(user==null) user = this.userService.findOneUser((Long) session.getAttribute("user__id"));
+		viewModel.addAttribute("user", user);
+		viewModel.addAttribute("userId", session.getAttribute("user__id"));
+		
 		return "userprofile.jsp";
 	}
 	@GetMapping("/user/edit/{id}")
