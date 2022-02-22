@@ -69,9 +69,9 @@ public class BookService {
 			// if book has already a profile picture
 			if (book.getImage() != null) {
 				Image image = imageRepository.findById(book.getImage().getId()).get();
-				image.setName(book.getImgfile().getOriginalFilename());
-				image.setType(book.getImgfile().getContentType());
-				image.setImage(ImageUtility.compressImage(book.getImgfile().getBytes()));
+				image.setName(imgFile.getOriginalFilename());
+				image.setType(imgFile.getContentType());
+				image.setImage(ImageUtility.compressImage(imgFile.getBytes()));
 				imageRepository.save(image);
 			} else {
 				imageRepository.save(Image.builder()
