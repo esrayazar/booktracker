@@ -1,12 +1,10 @@
 package com.esra.booktracker.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.PriorityQueue;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -27,7 +25,6 @@ import com.esra.booktracker.models.Review;
 import com.esra.booktracker.models.User;
 import com.esra.booktracker.services.BookService;
 import com.esra.booktracker.services.UserService;
-import com.esra.booktracker.utility.SortUtility;
 import com.esra.booktracker.validators.BookValidator;
 
 
@@ -38,7 +35,6 @@ public class BookController {
 	private static final String PROFILE_PAGE = "bookprofile";
 	private static final String WISHLIST_PAGE = "wishlist";
 	private static final String COMPLETED_PAGE = "completedlist";
-	//private static final String COMPLETED_PAGE_ADD = "completedbook";
 
 	@Autowired
 	private UserService userService;
