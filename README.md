@@ -18,6 +18,7 @@ MyBookee has following functionalities:
 13. User can search a book by ISBN, part of title, part of author name, and year. Search has following logic, ISBN maps one or no search result. Search based on part of title, part of author name, and year may return no result or many results.
 14. Search results can be sorted by like count, review count, rating and wishlist count.
 15. Adding/Changing user profile picture and adding/changing book profile picture is implemented.
+16. Many css customization implemented provide animations and hover effects etc.
 
 
 ### Sign-in
