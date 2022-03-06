@@ -1,4 +1,22 @@
-# bookie
+# MyBookee
+This application designed and implemented to track read books. A user can enter a book in the app and users can rate the book, provide review, like/unlike and add wish or completed list. Application is intended to log users acrivity regarding book reading. In feature implementations, I will be working an achivement logic and provide certification to users, so users can add that certification in their resume.
+
+MyBookee has following functionalities:
+
+1. User registration page and its validation.
+2. User login page and its validation.
+3. User dashboard with statistics specific to user.
+4. User can see the profile page and edit it.
+5. User can see the completed books by user.
+6. Users can see their wish list.
+7. A User can add a new book to application.
+8. Users can see the book detail page. User can provide rating, review and like.
+9. Owner of the book (who added book to application) can delete or edit the book.
+10. User can mark a book as completed by book ISBN.
+11. User can add, edit or delete a review for a book.
+12. User can go and visit other users profile and saw their book reading statistics.
+13. User can search a book by ISBN, part of title, part of author name, and year. Search has following logic, ISBN maps one or no search result. Search based on part of title, part of author name, and year may return no result or many results.
+14. Search results can be sorted by like count, review count, rating and wishlist count.
 
 
 ### Sign-in
